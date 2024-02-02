@@ -30,18 +30,56 @@ class OeuvreList extends StatelessWidget {
     );
   }
 
-  Widget _buildOeuvreDetails(Oeuvres oeuvre, BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(oeuvre.title, style: AppTheme.headerTitleStyle),
-          Text(oeuvre.description, style: AppTheme.headerParagraphStyle),
-          Text(oeuvre.price.toString(), style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold)),
-          BuyButtonWidget(oeuvre: oeuvre, cart: _cart),
-        ],
-      ),
-    );
-  }
+ Widget _buildOeuvreDetails(Oeuvres oeuvre, BuildContext context) {
+  return Container(
+    padding: EdgeInsets.all(10),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Titre centré avec margin bottom
+        Center(
+          child: Container(
+            margin: EdgeInsets.only(bottom: 16),
+            child: Text(oeuvre.title, style: AppTheme.headerTitleStyle),
+          ),
+        ),
+        // Image dans un conteneur avec background color et border radius
+        Container(
+          decoration: BoxDecoration(
+            color: Color(0xFFD4AF37),
+            borderRadius: BorderRadius.circular(16),
+          ),
+          child: Image.network(
+            oeuvre.image, // Assurez-vous d'avoir l'URL correcte de l'image
+            width: 350, // Ajustez la largeur selon vos besoins
+            height: 450, // Ajustez la hauteur selon vos besoins
+          ),
+        ),
+        // Margin bottom pour l'image
+        Container(
+          margin: EdgeInsets.only(bottom: 16),
+        ),
+        // Description avec margin bottom
+        Text(oeuvre.description, style: AppTheme.headerParagraphStyle, textAlign: TextAlign.justify),
+        Container(
+          margin: EdgeInsets.only(bottom: 16),
+        ),
+        // Prix avec taille de police spécifiée
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('${oeuvre.price.toString()} €', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: Colors.white)),
+            // Margin right pour le bouton
+            Container(
+              margin: EdgeInsets.only(right: 16),
+              child: BuyButtonWidget(oeuvre: oeuvre, cart: _cart),
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+}
+
+
 }
